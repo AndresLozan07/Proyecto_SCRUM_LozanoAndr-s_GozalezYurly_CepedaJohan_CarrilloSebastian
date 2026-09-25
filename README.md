@@ -1,1 +1,3 @@
-# Proyecto_SCRUM_LozanoAndr-s_GozalezYurly_CepedaJohan_CarrilloSebastian
+## Proyecto_SCRUM
+
+* Lozano Andrés, Gonzalez Yurly, Cepeda Johan, Carrillo Sebastian
