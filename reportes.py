@@ -1,5 +1,5 @@
 from servicio import servicios
-from matricula import matriculas
+from Matricula import matriculas
 def reporte_clientes_por_servicio():
     for s in servicios:
         count = sum(1 for m in matriculas if m["servicio"] == s)
