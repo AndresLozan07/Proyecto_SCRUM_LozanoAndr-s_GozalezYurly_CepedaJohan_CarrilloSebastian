@@ -1,20 +1,23 @@
 class Servicio:
-    def __init__(self, nombre, cupo_maximo):
+    def __init__(self, nombre, capacidad):
         self.nombre = nombre
-        self.cupo_maximo = cupo_maximo
-        self.clientes_matriculados = []
+        self.capacidad = capacidad
+        self.inscritos = 0
 
-    def cupo_disponible(self):
-        return self.cupo_maximo - len(self.clientes_matriculados)
+    def __str__(self):
+        return f"{self.nombre} - Cupo: {self.capacidad} - Inscritos: {self.inscritos}"
 
-# 5 servicios del Gimnasio ForceTech
-servicios = []
-servicios.append(Servicio("yoga", 10))
-servicios.append(Servicio("pilates", 15))
-servicios.append(Servicio("entrenamiento personalizado", 5))
-servicios.append(Servicio("acceso a la piscina", 20))
-servicios.append(Servicio("uso del gimnasio general", 30))
+# Esto lo necesita matricula.py
+servicios = {
+    "yoga": {"capacidad": 10, "inscritos": 0},
+    "pilates": {"capacidad": 15, "inscritos": 0},
+    "personalizado": {"capacidad": 5, "inscritos": 0},
+    "piscina": {"capacidad": 20, "inscritos": 0},
+    "general": {"capacidad": 30, "inscritos": 0}
+}
+
+lista_servicios = [Servicio("yoga",10), Servicio("pilates",15), Servicio("personalizado",5), Servicio("piscina",20), Servicio("general",30)]
 
 def mostrar_servicios():
-    for s in servicios:
-        print(f"{s.nombre}: {s.cupo_disponible()} cupos libres de {s.cupo_maximo}")
+    for s in lista_servicios:
+        print(s)

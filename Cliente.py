@@ -6,24 +6,30 @@ class Cliente:
         self.direccion = direccion
         self.celular = celular
         self.fijo = fijo
-        self.estado = estado  # En proceso de inscripcion, Inscrito, Activo, Inactivo
-        self.riesgo = riesgo  # alto, medio, bajo
+        self.estado = estado
+        self.riesgo = riesgo
 
     def __str__(self):
-        return f"{self.cedula} - {self.nombres} {self.apellidos} | {self.estado} | Riesgo: {self.riesgo}"
+        return f"{self.cedula} - {self.nombres} {self.apellidos} - {self.celular}"
 
 clientes = []
 
-def registrar_cliente(cedula, nombres, apellidos, direccion, celular, fijo, estado, riesgo):
+def registrar_cliente():
+    cedula = input("Cedula: ")
     for c in clientes:
         if c.cedula == cedula:
-            return "ERROR: Esa cedula ya existe"
-    nuevo = Cliente(cedula, nombres, apellidos, direccion, celular, fijo, estado, riesgo)
-    clientes.append(nuevo)
-    return "Cliente registrado OK"
+            print("Error: Cedula ya existe")
+            return
+    nombres = input("Nombres: ")
+    apellidos = input("Apellidos: ")
+    direccion = input("Direccion: ")
+    celular = input("Celular: ")
+    fijo = input("Fijo: ")
+    estado = input("Estado: ")
+    riesgo = input("Riesgo: ")
+    clientes.append(Cliente(cedula, nombres, apellidos, direccion, celular, fijo, estado, riesgo))
+    print("Cliente OK")
 
 def listar_clientes():
-    if not clientes:
-        print("No hay clientes")
     for c in clientes:
         print(c)

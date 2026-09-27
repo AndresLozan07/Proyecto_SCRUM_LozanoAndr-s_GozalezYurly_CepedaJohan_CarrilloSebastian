@@ -13,10 +13,12 @@ instructores.append(Instructor("Carlos", "yoga"))
 instructores.append(Instructor("Laura", "pilates"))
 instructores.append(Instructor("Andres", "entrenamiento personalizado"))
 
-def registrar_entrenador(nombre, especialidad):
+def registrar_entrenador():
+    nombre = input("Nombre: ")
+    esp = input("Especialidad: ")
+    instructores.append(Instructor(nombre, esp))
+    print("Instructor registrado")
+
+def listar_entrenadores():
     for i in instructores:
-        if i.nombre.lower() == nombre.lower():
-            return "ERROR: Ese instructor ya existe"
-    nuevo = Instructor(nombre, especialidad)
-    instructores.append(nuevo)
-    return "Instructor registrado OK"
+        print(i)

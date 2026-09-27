@@ -1,45 +1,32 @@
-from Cliente import clientes
-from servicio import servicios
-from Entrenadores import instructores
 from datetime import date
+from servicio import servicios
+from Cliente import clientes
+
+class Matricula:
+    def __init__(self, cedula, servicio, duracion, instructor):
+        self.cedula = cedula
+        self.servicio = servicio
+        self.fecha = str(date.today())
+        self.duracion = duracion
+        self.instructor = instructor
+
+    def __str__(self):
+        return f"{self.fecha} - {self.cedula} - {self.servicio} - {self.instructor}"
 
 matriculas = []
 
-
-def matricular(cedula, nombre_servicio, duracion, nombre_instructor):
-    cliente = next((c for c in clientes if c.cedula == cedula), None)
-    if not cliente:
-        return "ERROR: Cliente no existe"
-
-    servicio = next((s for s in servicios if s.nombre == nombre_servicio), None)
-    if not servicio:
-        return "ERROR: Servicio no existe"
-
-    instructor = next(
-        (i for i in instructores if i.nombre.lower() == nombre_instructor.lower()),
-        None
-    )
-    if not instructor:
-        return "ERROR: Instructor no existe"
-
-    # Validacion capacidad
-    if len(servicio.clientes_matriculados) >= servicio.cupo_maximo:
-        return "ERROR: El servicio ya esta lleno - capacidad maxima alcanzada"
-
-    servicio.clientes_matriculados.append(cliente)
-    instructor.clientes_asignados.append(cliente)
-
-    matricula = {
-        "cliente": cliente,
-        "servicio": servicio,
-        "instructor": instructor,
-        "fecha_inicio": str(date.today()),
-        "duracion": duracion
-    }
-
-    matriculas.append(matricula)
-
-    return (
-        f"Matriculado OK en {nombre_servicio} con "
-        f"{instructor.nombre} desde {matricula['fecha_inicio']}"
-    )
+def matricular():
+    cedula = input("Cedula cliente: ")
+    if not any(c.cedula == cedula for c in clientes):
+        print("Cliente no existe"); return
+    serv = input("Servicio (yoga/pilates/personalizado/piscina/general): ").lower()
+    if serv not in servicios:
+        print("Servicio no existe"); return
+    if servicios[serv]["inscritos"] >= servicios[serv]["capacidad"]:
+        print(f"Cupo lleno {serv} max {servicios[serv]['capacidad']}")
+        return
+    duracion = input("Duracion: ")
+    instructor = input("Instructor: ")
+    matriculas.append(Matricula(cedula, serv, duracion, instructor))
+    servicios[serv]["inscritos"] += 1
+    print("Matricula OK")
