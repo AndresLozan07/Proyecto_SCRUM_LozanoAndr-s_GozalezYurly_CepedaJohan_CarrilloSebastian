@@ -1,5 +1,5 @@
 class Cliente:
-    def _init_(self, cedula, nombres, apellidos, direccion, celular, fijo, estado, riesgo):
+    def __init__(self, cedula, nombres, apellidos, direccion, celular, fijo, estado, riesgo):
         self.cedula = cedula
         self.nombres = nombres
         self.apellidos = apellidos
@@ -9,7 +9,7 @@ class Cliente:
         self.estado = estado  # En proceso de inscripcion, Inscrito, Activo, Inactivo
         self.riesgo = riesgo  # alto, medio, bajo
 
-    def _str_(self):
+    def __str__(self):
         return f"{self.cedula} - {self.nombres} {self.apellidos} | {self.estado} | Riesgo: {self.riesgo}"
 
 clientes = []
