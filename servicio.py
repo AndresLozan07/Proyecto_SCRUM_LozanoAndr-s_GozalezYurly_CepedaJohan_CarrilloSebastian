@@ -14,3 +14,8 @@ servicios.append(Servicio("pilates", 15))
 servicios.append(Servicio("entrenamiento personalizado", 5))
 servicios.append(Servicio("acceso a la piscina", 20))
 servicios.append(Servicio("uso del gimnasio general", 30))
+
+def mostrar_servicios():
+    for s in servicios:
+        print(f"{s.nombre}: {s.cupo_disponible()} cupos libres de {s.cupo_maximo}")
+        
