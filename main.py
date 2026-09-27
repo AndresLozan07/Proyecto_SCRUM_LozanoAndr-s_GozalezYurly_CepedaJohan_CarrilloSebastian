@@ -10,7 +10,10 @@ while True:
     if op == "1": registrar_cliente()
     elif op == "2": listar_clientes()
     elif op == "3": mostrar_servicios()
-    elif op == "4": registrar_entrenador()
+    elif op == "4":
+        nombre = input("Nombre del instructor: ")
+        especialidad = input("Especialidad: ")
+        print(registrar_entrenador(nombre, especialidad))
     elif op == "5":
         cedula = input("Cedula del cliente: ")
         nombre_servicio = input("Servicio: ")
