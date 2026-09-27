@@ -18,4 +18,3 @@ servicios.append(Servicio("uso del gimnasio general", 30))
 def mostrar_servicios():
     for s in servicios:
         print(f"{s.nombre}: {s.cupo_disponible()} cupos libres de {s.cupo_maximo}")
-        

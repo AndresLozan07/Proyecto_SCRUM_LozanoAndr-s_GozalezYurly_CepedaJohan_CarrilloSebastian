@@ -11,10 +11,14 @@ while True:
     elif op == "2": listar_clientes()
     elif op == "3": mostrar_servicios()
     elif op == "4": registrar_entrenador()
-    elif op == "5": matricular()
-    elif op == "6": 
+    elif op == "5":
+        cedula = input("Cedula del cliente: ")
+        nombre_servicio = input("Servicio: ")
+        duracion = input("Duracion: ")
+        nombre_instructor = input("Instructor: ")
+        print(matricular(cedula, nombre_servicio, duracion, nombre_instructor))
+    elif op == "6":
         reporte_clientes_por_servicio()
         reporte_cupos_disponibles()
         reporte_matriculas_por_fecha()
     elif op == "7": break
-    
