@@ -1,26 +1,29 @@
-# Lista donde se guardan todos los clientes
-clientes_guardados = []
-
-
 class Cliente:
-    def __init__(self, cedula, nombre, apellido, direccion, celular):
+    def _init_(self, cedula, nombres, apellidos, direccion, celular, fijo, estado, riesgo):
         self.cedula = cedula
-        self.nombre = nombre
-        self.apellido = apellido
+        self.nombres = nombres
+        self.apellidos = apellidos
         self.direccion = direccion
         self.celular = celular
-        self.estado = "Inscrito"  # Puede ser: En proceso, Inscrito, Activo, Inactivo
+        self.fijo = fijo
+        self.estado = estado  # En proceso de inscripcion, Inscrito, Activo, Inactivo
+        self.riesgo = riesgo  # alto, medio, bajo
 
+    def _str_(self):
+        return f"{self.cedula} - {self.nombres} {self.apellidos} | {self.estado} | Riesgo: {self.riesgo}"
 
-# Función para agregar un cliente
-def agregar_cliente(cedula, nombre, apellido, direccion, celular):
-    # Revisa si ya existe
-    for c in clientes_guardados:
+clientes = []
+
+def registrar_cliente(cedula, nombres, apellidos, direccion, celular, fijo, estado, riesgo):
+    for c in clientes:
         if c.cedula == cedula:
-            print("Esa cédula ya existe")
-            return
+            return "ERROR: Esa cedula ya existe"
+    nuevo = Cliente(cedula, nombres, apellidos, direccion, celular, fijo, estado, riesgo)
+    clientes.append(nuevo)
+    return "Cliente registrado OK"
 
-    nuevo = Cliente(cedula, nombre, apellido, direccion, celular)
-    clientes_guardados.append(nuevo)
-
-    print(f"Cliente {nombre} agregado bien")
+def listar_clientes():
+    if not clientes:
+        print("No hay clientes")
+    for c in clientes:
+        print(c)
