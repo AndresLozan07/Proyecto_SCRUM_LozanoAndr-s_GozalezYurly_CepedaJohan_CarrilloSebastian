@@ -1,71 +1,72 @@
-from Cliente import registrar_cliente, listar_clientes
-from Entrenadores import registrar_entrenador, listar_entrenadores
-from servicio import mostrar_servicios
-from Matricula import matricular
-from reportes import reporte_clientes_por_servicio, reporte_cupos_disponibles, reporte_matriculas_por_fecha
-import os
+from storage import clientes, entrenadores, servicios, matriculas, guardar, cargar, usuarios_sistema
+from cliente import Cliente
+from entrenador import Entrenador
+from servicio import Servicio
+from matricula import Matricula
+from usuarios import login, permiso, Rol, Usuario, usuario_actual, usuarios_sistema as users
 
-NOMBRE_GYM = "GIMNASIO FORCETECH"
+def registrar_cliente():
+    if not permiso(Rol.ADMINISTRADOR, Rol.ENTRENADOR): print("❌ Solo ADMIN y ENTRENADOR"); return
+    cedula = input("Cédula: ").strip(); nombre = input("Nombre: ").strip(); email = input("Email: ").strip(); edad = input("Edad: ").strip(); tel = input("Tel 10 digitos: ").strip()
+    if not cedula or not nombre or not email or not edad or not tel: print("❌ Todos obligatorios"); return
+    if not cedula.isdigit() or any(c.cedula == cedula for c in clientes): print("❌ Cédula inválida o repetida"); return
+    if len(nombre)<3 or "@" not in email: print("❌ Nombre o Email inválido"); return
+    if not edad.isdigit() or int(edad)<14: print("❌ Edad mínima 14"); return
+    clientes.append(Cliente(cedula,nombre,email,int(edad),tel))
+    users.append(Usuario(cedula,cedula,Rol.CLIENTE)); guardar(); print(f"✅ Cliente creado Usuario:{cedula} Pass:{cedula}")
 
-def limpiar():
-    os.system('cls' if os.name == 'nt' else 'clear')
+def registrar_entrenador():
+    if not permiso(Rol.ADMINISTRADOR): print("❌ Solo ADMIN"); return
+    ced=input("Cédula: "); nom=input("Nombre: "); esp=input("Especialidad Yoga/Pilates/Crossfit: "); email=input("Email: ")
+    if not ced or not nom or not esp: print("❌ Obligatorios"); return
+    if any(e.cedula==ced for e in entrenadores): print("❌ Cédula repetida"); return
+    entrenadores.append(Entrenador(ced,nom,esp,email)); users.append(Usuario(nom.lower(),"123",Rol.ENTRENADOR)); guardar(); print("✅ Entrenador creado")
 
-def banner():
-    print("="*60)
-    print(f" 🏋️ {NOMBRE_GYM} - SISTEMA DE GESTION 🏋️ ".center(60))
-    print("="*60)
-    print(" ¡BIENVENIDOS A FORCETECH! ".center(60))
-    print(" Donde tu fuerza se convierte en tecnologia ".center(60))
-    print()
+def crear_servicio():
+    if not permiso(Rol.ADMINISTRADOR): print("❌ Solo ADMIN"); return
+    cod=input("Código: "); nom=input("Nombre: "); cupo=input("Cupo 1-50: "); ced_ent=input("Cédula entrenador: "); hor=input("Horario: ")
+    if not cod or not nom or not cupo: print("❌ Obligatorios"); return
+    if any(s.codigo==cod for s in servicios): print("❌ Código ya existe"); return
+    if not cupo.isdigit() or not (1<=int(cupo)<=50): print("❌ Cupo 1-50"); return
+    servicios.append(Servicio(cod,nom,int(cupo),ced_ent,hor)); guardar(); print("✅ Servicio creado")
 
-def menu():
-    banner()
-    print("┌──────────────────────────────────────────┐")
-    print("│ MENU PRINCIPAL FORCETECH │")
-    print("├──────────────────────────────────────────┤")
-    print("│ 1. 📝 Registrar Cliente [Sebastian] │")
-    print("│ 2. 📋 Listar Clientes [Sebastian] │")
-    print("│ 3. 🏋️ Ver Servicios ForceTech [Yurly] │")
-    print("│ 4. 👨‍🏫 Registrar Entrenador [Johan] │")
-    print("│ 5. 📅 Matricular Cliente [Johan] │")
-    print("│ 6. 📊 Reportes ForceTech [Andres] │")
-    print("│ 7. 🚪 Salir │")
-    print("└──────────────────────────────────────────┘")
+def matricular():
+    ced = users[0].username if False else (usuario_actual.username if permiso(Rol.CLIENTE) and usuario_actual.username.isdigit() else input("Cédula cliente: ").strip())
+    cod = input("Código servicio: ").strip()
+    if not any(c.cedula==ced for c in clientes): print("❌ Cliente no existe"); return
+    serv = next((s for s in servicios if s.codigo==cod), None)
+    if not serv: print("❌ Servicio no existe"); return
+    if any(m.cedula_cliente==ced and m.codigo_servicio==cod for m in matriculas): print("❌ Ya matriculado"); return
+    if sum(1 for m in matriculas if m.codigo_servicio==cod) >= serv.cupo_max: print("❌ Servicio lleno"); return
+    matriculas.append(Matricula(ced,cod)); guardar(); print("✅ Matriculado")
 
-while True:
-    limpiar()
-    menu()
-    op = input("\n👉 Selecciona una opcion (1-7): ")
+def reportes():
+    if permiso(Rol.ADMINISTRADOR):
+        for s in servicios:
+            oc=sum(1 for m in matriculas if m.codigo_servicio==s.codigo)
+            print(f"{s.codigo} {s.nombre}: {oc}/{s.cupo_max} Disp:{s.cupo_max-oc}")
+    elif permiso(Rol.ENTRENADOR):
+        for s in servicios:
+            oc=sum(1 for m in matriculas if m.codigo_servicio==s.codigo)
+            print(f"{s.nombre}: {oc} clientes Libres:{s.cupo_max-oc}")
+    else: print("❌ Clientes no ven reportes")
 
-    if op == "1":
-        print(f"\n--- REGISTRO CLIENTE - {NOMBRE_GYM} ---")
-        registrar_cliente()
-    elif op == "2":
-        print(f"\n--- CLIENTES {NOMBRE_GYM} ---")
-        listar_clientes()
-    elif op == "3":
-        print(f"\n--- SERVICIOS {NOMBRE_GYM} ---")
-        print(" Yoga | Pilates | Personalizado | Piscina | General ")
-        mostrar_servicios()
-    elif op == "4":
-        print(f"\n--- INSTRUCTORES {NOMBRE_GYM} ---")
-        registrar_entrenador()
-    elif op == "5":
-        print(f"\n--- MATRICULAS {NOMBRE_GYM} ---")
-        matricular()
-    elif op == "6":
-        print(f"\n{'='*10} REPORTES {NOMBRE_GYM} {'='*10}")
-        reporte_clientes_por_servicio()
-        print("-"*60)
-        reporte_cupos_disponibles()
-        print("-"*60)
-        reporte_matriculas_por_fecha()
-    elif op == "7":
-        limpiar()
-        print(f"\n¡Gracias por usar {NOMBRE_GYM}!")
-        print("¡Vuelve pronto, tu progreso nos importa! 💪🔥")
-        break
-    else:
-        print("❌ Opcion no valida")
+def main():
+    cargar()
+    if not login(): return
+    while True:
+        print(f"\n--- FORTECH {usuario_actual.rol.value} ---")
+        op=input("1.Reg Cliente 2.Crear Serv 3.Reg Entrenador 4.Matricular 5.Listar Serv 6.Reportes 0.Salir: ")
+        if op=="0": guardar(); break
+        if op=="1": registrar_cliente()
+        if op=="2": crear_servicio()
+        if op=="3": registrar_entrenador()
+        if op=="4": matricular()
+        if op=="5":
+            for s in servicios:
+                oc=sum(1 for m in matriculas if m.codigo_servicio==s.codigo)
+                print(f"{s.codigo} {s.nombre} {oc}/{s.cupo_max}")
+        if op=="6": reportes()
 
-    input("\nPresiona ENTER para continuar...")
+if __name__ == "__main__":
+    main()
