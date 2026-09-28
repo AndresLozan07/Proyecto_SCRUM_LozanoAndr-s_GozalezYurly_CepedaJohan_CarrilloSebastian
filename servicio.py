@@ -1,14 +1,12 @@
 class Servicio:
-    def __init__(self, codigo, nombre, cupo_max, entrenador_cedula, horario):
+    def __init__(self, codigo, nombre, capacidad_max):
         self.codigo = codigo
-        self.nombre = nombre
-        self.cupo_max = cupo_max
-        self.entrenador_cedula = entrenador_cedula
-        self.horario = horario
+        self.nombre = nombre # yoga, pilates, entrenamiento personalizado, piscina, general
+        self.capacidad_max = int(capacidad_max)
 
     def to_dict(self):
         return self.__dict__
 
     @staticmethod
-    def from_dict(data):
-        return Servicio(data["codigo"], data["nombre"], data["cupo_max"], data["entrenador_cedula"], data["horario"])
+    def from_dict(d):
+        return Servicio(d["codigo"], d["nombre"], d["capacidad_max"])

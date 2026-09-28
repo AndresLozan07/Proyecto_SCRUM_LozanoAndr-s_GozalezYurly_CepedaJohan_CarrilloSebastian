@@ -1,20 +1,20 @@
 class Cliente:
-    def __init__(self, cedula, nombre, email, edad, telefono):
-        self.cedula = cedula
-        self.nombre = nombre
-        self.email = email
-        self.edad = edad
-        self.telefono = telefono
+    def __init__(self, identificacion, nombres, apellidos, direccion, celular, fijo, estado, riesgo):
+        self.identificacion = identificacion
+        self.nombres = nombres
+        self.apellidos = apellidos
+        self.direccion = direccion
+        self.celular = celular
+        self.fijo = fijo
+        self.estado = estado # En proceso de inscripción, Inscrito, Activo, Inactivo
+        self.riesgo = riesgo # alto, medio, bajo
+        self.progreso = {} # {codigo_servicio: "asistencia / rendimiento"}
 
     def to_dict(self):
-        return {
-            "cedula": self.cedula,
-            "nombre": self.nombre,
-            "email": self.email,
-            "edad": self.edad,
-            "telefono": self.telefono
-        }
+        return self.__dict__
 
     @staticmethod
-    def from_dict(data):
-        return Cliente(data["cedula"], data["nombre"], data["email"], data["edad"], data["telefono"])
+    def from_dict(d):
+        c = Cliente(d["identificacion"], d["nombres"], d["apellidos"], d["direccion"], d["celular"], d["fijo"], d["estado"], d["riesgo"])
+        c.progreso = d.get("progreso", {})
+        return c
