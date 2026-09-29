@@ -6,46 +6,13 @@
             "rol": "Administrador"
         },
         {
-            "usuario": "1017156308",
-            "contrasena": "1017156308",
-            "rol": "Cliente",
-            "identificacion": "1017156308"
-        },
-        {
             "usuario": "emily20",
             "contrasena": "1234",
             "rol": "Entrenador",
             "identificacion": "1099744704"
-        },
-        {
-            "usuario": "91538384",
-            "contrasena": "91538384",
-            "rol": "Cliente",
-            "identificacion": "91538384"
         }
     ],
-    "clientes": [
-        {
-            "identificacion": "1017156308",
-            "nombres": "yurly",
-            "apellidos": "gonzalez",
-            "direccion": "cra 9No.45-13",
-            "celular": "3176621559",
-            "telefono_fijo": "",
-            "estado": "Inscrito",
-            "riesgo": "alto"
-        },
-        {
-            "identificacion": "91538384",
-            "nombres": "erik",
-            "apellidos": "galvis",
-            "direccion": "cra 9 45-13",
-            "celular": "320814785",
-            "telefono_fijo": "0",
-            "estado": "Activo",
-            "riesgo": "bajo"
-        }
-    ],
+    "clientes": [],
     "entrenadores": [
         {
             "identificacion": "1099744704",
@@ -55,77 +22,9 @@
             "usuario": "emily20"
         }
     ],
-    "servicios": [
-        {
-            "nombre": "Clases de yoga",
-            "capacidad": 10,
-            "clientes_actuales": 1
-        },
-        {
-            "nombre": "Clases de pilates",
-            "capacidad": 5,
-            "clientes_actuales": 1
-        },
-        {
-            "nombre": "Entrenamiento personalizado",
-            "capacidad": 5,
-            "clientes_actuales": 0
-        },
-        {
-            "nombre": "Acceso a la piscina",
-            "capacidad": 1,
-            "clientes_actuales": 1
-        }
-    ],
-    "matriculas": [
-        {
-            "cliente": "1017156308",
-            "servicio": "Clases de pilates",
-            "fecha_inicio": "30/09/2026",
-            "duracion": "3",
-            "instructor": "emily galvis"
-        },
-        {
-            "cliente": "1017156308",
-            "servicio": "Clases de yoga",
-            "fecha_inicio": "28/09/2026",
-            "duracion": "2",
-            "instructor": "emily galvis"
-        },
-        {
-            "cliente": "1017156308",
-            "servicio": "Acceso a la piscina",
-            "fecha_inicio": "29/06/2026",
-            "duracion": "3",
-            "instructor": "emily galvis"
-        }
-    ],
-    "asistencias": [
-        {
-            "cliente": "1017156308",
-            "fecha": "30/09/2026",
-            "asistencia": "si"
-        },
-        {
-            "cliente": "4",
-            "fecha": "",
-            "asistencia": ""
-        }
-    ],
-    "evaluaciones": [
-        {
-            "cliente": "1017156308",
-            "servicio": "clases de pilates",
-            "fecha": "30/09/2026",
-            "rendimiento": "bajo",
-            "condicion_fisica": "regular"
-        }
-    ],
-    "actividades": [
-        {
-            "cliente": "1017156308",
-            "fecha": "29/09/30",
-            "actividad": "clases de yoga"
-        }
-    ]
+    "servicios": [],
+    "matriculas": [],
+    "asistencias": [],
+    "evaluaciones": [],
+    "actividades": []
 }
