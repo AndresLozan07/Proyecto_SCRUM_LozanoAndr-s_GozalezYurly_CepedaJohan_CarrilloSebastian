@@ -366,6 +366,13 @@ El archivo `datos.json` utilizado durante las pruebas puede contener usuarios y 
 Para una implementación real, las credenciales no deberían almacenarse de esta manera ni publicarse directamente en un repositorio público.
 
 ---
+## 📄 Link Documento guía para la propuesta del proyecto:
+
+https://docs.google.com/document/d/17DOoxwQicZefi7hfqq-sruI93UCHuk8l/edit
+
+## 📄 Link de Tablero KANBAN:
+
+https://trello.com/b/V4fo4xZP/kanban-proyecto-scrum
 
 ## 📄 Estado del proyecto
 
