@@ -10,9 +10,26 @@
             "contrasena": "1234",
             "rol": "Entrenador",
             "identificacion": "1099744704"
+        },
+        {
+            "usuario": "Miguel01",
+            "contrasena": "1234",
+            "rol": "Cliente",
+            "identificacion": "10963332244"
         }
     ],
-    "clientes": [],
+    "clientes": [
+        {
+            "identificacion": "10963332244",
+            "nombres": "Miguel",
+            "apellidos": "Vargas",
+            "direccion": "Calle 50 # 03-02",
+            "celular": "3107856566",
+            "telefono_fijo": "6076333232",
+            "estado": "En proceso de inscripcion",
+            "riesgo": "bajo"
+        }
+    ],
     "entrenadores": [
         {
             "identificacion": "1099744704",
